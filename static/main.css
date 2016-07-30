@@ -31,9 +31,10 @@ md-tabs-wrapper{ pointer-events:none; }
 .selection-button{
     /* The final yes/no buttons */
     text-transform:none !important;
-    border: 1px solid black;
+    border: 1px solid #888;
     margin:25px;
     margin-top:0;
+    height:75px;
 }
 
 .final-question{
