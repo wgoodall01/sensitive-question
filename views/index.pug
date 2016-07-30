@@ -34,7 +34,11 @@ body
 
             // Tab 1
             md-tab(label="overview" md-on-select="newRandom()"): md-tab-content(flex layout-fill).md-padding
-                h1 Testing
+                .md-headline Sensitive Question
+                p.
+                    On the next screen, there will be an instruction to lie or not to lie when answering
+                    the question: "Have you ever lied to a friend". If it instructs you to lie, click the
+                    opposite button from the truth.
 
             // Tab 2
             md-tab(label="what do do"): md-tab-content(flex layout-fill layout="column" \
@@ -59,7 +63,7 @@ body
                     span.md-display-4 Error.
 
 
-        md-toolbar.md-hue-2(ng-dblclick="reset()"): .md-toolbar-tools(layout="row")
+        md-toolbar.md-hue-2.nofocus(ng-dblclick="reset()"): .md-toolbar-tools(layout="row")
             span.white-text {{tabIndex + 1}} of 3
             span(ng-dblclick="reset()" flex)
             div(ng-if="tabIndex < 2")
