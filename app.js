@@ -1,8 +1,29 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var morgan = require("morgan");
-var app = express();
+var pg = require("pg");
+var url = require("url");
 
+// Set up postgres pool
+pg.defaults.ssl = true;
+
+const params = url.parse(process.env.DATABASE_URL);
+const auth = params.auth.split(":");
+
+var pool = new pg.Pool({
+  user: auth[0],
+  password: auth[1],
+  host: params.hostname,
+  port: params.port,
+  database: params.pathname.split("/")[1],
+  ssl: true
+});
+
+process.on("unhandledRejection", function(e) {
+  console.log(e.message, e.stack);
+});
+
+var app = express();
 app.set("view engine", "pug");
 app.set("views", "./views");
 
@@ -26,10 +47,8 @@ app.get("/question", function(req, res){
 app.post("/answer", function(req, res){
     var answer;
     if(req.body.answer === true){
-        res.status(200).json({status:"ok"});
         answer = true;
     } else if(req.body.answer === false){
-        res.status(200).json({status:"ok"});
         answer = false;
     }else{
         res.status(400).json({status: "error", error: "`answer` was not `true` or `false`"});
@@ -37,7 +56,13 @@ app.post("/answer", function(req, res){
     }
 
     // Write answer to database
-    console.log("Answer recv: " + answer); // Demo code, remove this.
+    pool.query("INSERT INTO responses (response) VALUES ($1)", [answer])
+        .then(function(){
+            res.status(200).json({status:"ok"});
+        }).catch(function(err){
+            res.status(500).json({status:"error", error:"Database error."});
+            console.log(err);
+        });
 });
 
 // Start server
