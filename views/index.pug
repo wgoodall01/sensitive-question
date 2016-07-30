@@ -55,9 +55,9 @@ body
                 div(ng-if="submissionState == 'none'" layout-fill layout="column")
                     .md-display-1.final-question(ng-bind="question")
                     md-button.md-raised.selection-button(flex layout="column" layout-align="center center" ng-click="submit(true)")
-                        .md-display-4.no-txt-transform Yes
+                        .md-display-3.no-txt-transform Yes
                     md-button.md-raised.selection-button(flex layout="column" layout-align="center center" ng-click="submit(false)")
-                        .md-display-4.no-txt-transform No
+                        .md-display-3.no-txt-transform No
                 div(ng-if="submissionState == 'waiting'" layout-fill layout-align="center center" layout="column" flex)
                     md-progress-circular(md-mode="indeterminate")
                 div(ng-if="submissionState == 'done'" layout-fill layout-align="center center" layout="column" flex)
