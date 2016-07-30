@@ -1,8 +1,5 @@
-.icon-black{
-    fill:black;
-}
-
-.white-text{ color:white; }
+md-tabs-wrapper{ pointer-events:none; }
+.nofocus:focus { outline:0 !important; }
 
 .app-container{
     /* Max sizes */
@@ -17,27 +14,30 @@
 	transform:translateY(-50%);
 }
 
-md-tabs-wrapper{
-    pointer-events:none;
-}
+.white-text{ color:white; }
+.icon-black{ fill:black; }
 
-.nofocus:focus { outline:0 !important; }
+.red{ background-color:#b6131f; }
+.green{ background-color:#1c9a13; }
 
 .panel{
+    /* The true/false big text */
     text-align:center;
     margin-top:10px;
     font-size:40px;
     border-radius:5px;
 }
 
-.green{
-    background-color:#1c9a13;
+.selection-button{
+    /* The final yes/no buttons */
+    text-transform:none !important;
+    border: 1px solid black;
+    margin:25px;
 }
 
-.red{
-    background-color:#b6131f;
-}
-
-.outline{
-    border: 2px solid black;
+.final-question{
+    margin-top:20px;
+    margin-bottom:20px;
+    margin-left:25px;
+    margin-right:25px;
 }

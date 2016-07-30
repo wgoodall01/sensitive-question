@@ -34,11 +34,14 @@ body
 
             // Tab 1
             md-tab(label="overview" md-on-select="newRandom()"): md-tab-content(flex layout-fill).md-padding
-                .md-headline Sensitive Question
-                p.
+                p.md-subhead.
                     On the next screen, there will be an instruction to lie or not to lie when answering
-                    the question: "{{ question }}". If it instructs you to lie, click the
+                    the question: "#[b {{ question }}]". If it instructs you to lie, click the
                     opposite button from the truth.
+                p.md-subhead.
+                    To ensure even sampling, #[b don't show the screen to anyone else] while taking the survey.
+                p.md-subhead.
+                    To begin, click the #[b NEXT] button at the bottom-right of the screen.
 
             // Tab 2
             md-tab(label="what to do"): md-tab-content(flex layout-fill layout="column" \
@@ -50,11 +53,11 @@ body
             //Tab 3
             md-tab(label="submission"): md-tab-content(flex layout-fill).md-padding
                 div(ng-if="submissionState == 'none'" layout-fill layout="column")
-                    .md-display-1(ng-bind="question")
-                    md-button.md-raised.outline(flex layout="column" layout-align="center center" ng-click="submit(true)")
-                        .md-display-4 Yes
-                    md-button.md-raised.outline(flex layout="column" layout-align="center center" ng-click="submit(false)")
-                        .md-display-4 No
+                    .md-display-1.final-question(ng-bind="question")
+                    md-button.md-raised.selection-button(flex layout="column" layout-align="center center" ng-click="submit(true)")
+                        .md-display-4.no-txt-transform Yes
+                    md-button.md-raised.selection-button(flex layout="column" layout-align="center center" ng-click="submit(false)")
+                        .md-display-4.no-txt-transform No
                 div(ng-if="submissionState == 'waiting'" layout-fill layout-align="center center" layout="column" flex)
                     md-progress-circular(md-mode="indeterminate")
                 div(ng-if="submissionState == 'done'" layout-fill layout-align="center center" layout="column" flex)
