@@ -1,4 +1,4 @@
-angular.module("questions", ["ngMaterial", "ngMessages", "ngMdIcons"])
+angular.module("questions", ["ngMaterial", "ngMdIcons"])
 
 .controller("qCtrl", function($scope, $http){
 
