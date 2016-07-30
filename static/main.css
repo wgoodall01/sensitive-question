@@ -6,8 +6,8 @@
 
 .app-container{
     /* Max sizes */
-    max-width:600px;
-    max-height:900px;
+    max-width:500px;
+    max-height:700px;
     height:100%;
 
     /* Center on frame */
@@ -20,6 +20,8 @@
 md-tabs-wrapper{
     pointer-events:none;
 }
+
+.nofocus:focus { outline:0 !important; }
 
 .panel{
     text-align:center;
