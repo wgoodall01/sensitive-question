@@ -4,25 +4,23 @@ head
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
     meta(name="mobile-web-app-capable" content="yes")
     
+    link(rel="stylesheet", href="main.css")
     - if(settings.env == "development")
         link(rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.css")
         script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js")
         script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js")
         script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.js")
-        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.js")
         script(src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.js") 
     - else
+        link(rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css")
         script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js")
         script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js")
         script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js")
-        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js")
         script(src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js") 
-        link(rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css")
     
-    script(src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js")
 
+    script(src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js")
     script(src="main.js")
-    link(rel="stylesheet", href="main.css")
 
 
 body
@@ -46,7 +44,7 @@ body
             // Tab 2
             md-tab(label="what to do"): md-tab-content(flex layout-fill layout="column" \
                     ng-class="{red: lie, green: !lie}").md-padding
-                .md-display-1.white-text For the next question, you must tell...
+                .md-display-1.white-text.you-must For the next question, you must tell...
                 .panel.white-text( flex layout="column" layout-align="center center")
                     .md-display-4(ng-bind="lie ? 'A Lie' : 'The Truth'") 
             

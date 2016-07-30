@@ -28,6 +28,10 @@ md-tabs-wrapper{ pointer-events:none; }
     border-radius:5px;
 }
 
+.you-must{
+    margin:25px;
+}
+
 .selection-button{
     /* The final yes/no buttons */
     text-transform:none !important;
