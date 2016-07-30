@@ -59,14 +59,12 @@ body
                     span.md-display-4 Error.
 
 
-        md-toolbar.md-hue-2(): .md-toolbar-tools(layout="row")
+        md-toolbar.md-hue-2(ng-dblclick="reset()"): .md-toolbar-tools(layout="row")
             span.white-text {{tabIndex + 1}} of 3
             span(ng-dblclick="reset()" flex)
             div(ng-if="tabIndex < 2")
                 md-button.md-raised(ng-click="next()")
                     span Next
                     md-icon: ng-md-icon(icon="navigate_next").icon-black
-            div(ng-if="tabIndex >= 2")
-                .white-text(ng-dblclick="reset()" flex) Reset
 
     
