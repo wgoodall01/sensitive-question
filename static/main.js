@@ -5,7 +5,6 @@ angular.module("questions", ["ngMaterial", "ngMessages", "ngMdIcons"])
     $http.get("/question")
         .then(function(res){
             $scope.question = res.data.question;
-            console.dir(res.data);
         })
         .catch(function(err){
             console.log(err);
