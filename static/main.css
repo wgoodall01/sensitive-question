@@ -2,6 +2,8 @@
     fill:black;
 }
 
+.white-text{ color:white; }
+
 .app-container{
     /* Max sizes */
     max-width:600px;
@@ -13,4 +15,27 @@
     position: relative;
 	top: 50%;
 	transform:translateY(-50%);
+}
+
+md-tabs-wrapper{
+    pointer-events:none;
+}
+
+.panel{
+    text-align:center;
+    margin-top:10px;
+    font-size:40px;
+    border-radius:5px;
+}
+
+.green{
+    background-color:#1c9a13;
+}
+
+.red{
+    background-color:#b6131f;
+}
+
+.outline{
+    border: 2px solid black;
 }

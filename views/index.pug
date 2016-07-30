@@ -5,46 +5,68 @@ head
     meta(name="mobile-web-app-capable" content="yes")
     
     - if(settings.env == "development")
-        link(rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.css")
-        script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js")
-        script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js")
-        script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.js")
-        script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.js")
-        script(src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.js") 
+        link(rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.css")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.js") 
     - else
-        script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js")
-        script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js")
-        script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js")
-        script(src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js")
-        script(src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js") 
-        link(rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-messages.min.js")
+        script(src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js") 
+        link(rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css")
     
     script(src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js")
-    script(src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js")
 
     script(src="main.js")
     link(rel="stylesheet", href="main.css")
 
 
-body: .app-container.md-whiteframe-16dp(ng-app="questions", ng-controller="qCtrl" layout="column")
-    md-toolbar.md-hue-2(): .md-toolbar-tools
-        h2: span Difficult Questions
-    md-content(flex)
-        md-tabs(md-dymanic-height md-border-bottom)
-            md-tab(label="overview")
-                md-content.md-padding
-                    h1 Testing
-            md-tab(label="what do do")
-                md-content.md-padding
-                    h1 Testing
-            md-tab(label="Submission")
-                md-content.md-padding
-                    h1 Testing
+body
+    .app-container.md-whiteframe-16dp(ng-app="questions", ng-controller="qCtrl" layout="column")
+        md-toolbar.md-hue-2(): .md-toolbar-tools
+            h2: span Difficult Questions
+        md-tabs(md-dymanic-height md-border-bottom md-selected="tabIndex" \
+                md-autoselect="" md-stretch-tabs="always" md-swipe-left="next()" flex)
 
-    md-toolbar.md-hue-2(): .md-toolbar-tools(layout="row")
-        span(flex)
-        md-button.md-raised
-            span Next
-            md-icon: ng-md-icon(icon="navigate_next").icon-black
+            // Tab 1
+            md-tab(label="overview" md-on-select="newRandom()"): md-tab-content(flex layout-fill).md-padding
+                h1 Testing
+
+            // Tab 2
+            md-tab(label="what do do"): md-tab-content(flex layout-fill layout="column" \
+                    ng-class="{red: lie, green: !lie}").md-padding
+                .md-display-1.white-text For the next question, you must tell...
+                .panel.white-text( flex layout="column" layout-align="center center")
+                    .md-display-4(ng-bind="lie ? 'A Lie' : 'The Truth'") 
+            
+            //Tab 3
+            md-tab(label="submission"): md-tab-content(flex layout-fill).md-padding
+                div(ng-if="submissionState == 'none'" layout-fill layout="column")
+                    .md-display-1 Have you ever lied to a close friend?
+                    md-button.md-raised.outline(flex layout="column" layout-align="center center" ng-click="submit(true)")
+                        .md-display-4 Yes
+                    md-button.md-raised.outline(flex layout="column" layout-align="center center" ng-click="submit(false)")
+                        .md-display-4 No
+                div(ng-if="submissionState == 'waiting'" layout-fill layout-align="center center" layout="column" flex)
+                    md-progress-circular(md-mode="indeterminate")
+                div(ng-if="submissionState == 'done'" layout-fill layout-align="center center" layout="column" flex)
+                    span.md-display-4 Done!
+                div(ng-if="submissionState == 'error'" layout-fill layout-align="center center" layout="column" flex)
+                    span.md-display-4 Error.
+
+
+        md-toolbar.md-hue-2(): .md-toolbar-tools(layout="row")
+            span.white-text {{tabIndex + 1}} of 3
+            span(ng-dblclick="reset()" flex)
+            div(ng-if="tabIndex < 2")
+                md-button.md-raised(ng-click="next()")
+                    span Next
+                    md-icon: ng-md-icon(icon="navigate_next").icon-black
+            div(ng-if="tabIndex >= 2")
+                .white-text(ng-dblclick="reset()" flex) Reset
 
     
