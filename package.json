@@ -1,0 +1,26 @@
+{
+  "name": "sensitive-question",
+  "version": "1.0.0",
+  "description": "Ask sensitive questions without lies as a response.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wgoodall01/sensitive-question.git"
+  },
+  "author": "William Goodall",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wgoodall01/sensitive-question/issues"
+  },
+  "homepage": "https://github.com/wgoodall01/sensitive-question#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "pug": "^2.0.0-beta4"
+  }
+}

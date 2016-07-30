@@ -1,0 +1,16 @@
+.icon-black{
+    fill:black;
+}
+
+.app-container{
+    /* Max sizes */
+    max-width:600px;
+    max-height:900px;
+    height:100%;
+
+    /* Center on frame */
+    margin: 0 auto;
+    position: relative;
+	top: 50%;
+	transform:translateY(-50%);
+}
