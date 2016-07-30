@@ -26,7 +26,7 @@ head
 
 
 body
-    .app-container.md-whiteframe-16dp(ng-app="questions", ng-controller="qCtrl" layout="column")
+    .app-container.md-whiteframe-16dp(ng-app="questions", ng-controller="qCtrl" layout="column" ng-cloak)
         md-toolbar.md-hue-2(): .md-toolbar-tools
             h2: span Sensitive Questions
         md-tabs(md-dymanic-height md-border-bottom md-selected="tabIndex" \
@@ -37,7 +37,7 @@ body
                 .md-headline Sensitive Question
                 p.
                     On the next screen, there will be an instruction to lie or not to lie when answering
-                    the question: "Have you ever lied to a friend". If it instructs you to lie, click the
+                    the question: "{{ question }}". If it instructs you to lie, click the
                     opposite button from the truth.
 
             // Tab 2
@@ -50,7 +50,7 @@ body
             //Tab 3
             md-tab(label="submission"): md-tab-content(flex layout-fill).md-padding
                 div(ng-if="submissionState == 'none'" layout-fill layout="column")
-                    .md-display-1 Have you ever lied to a close friend?
+                    .md-display-1(ng-bind="question")
                     md-button.md-raised.outline(flex layout="column" layout-align="center center" ng-click="submit(true)")
                         .md-display-4 Yes
                     md-button.md-raised.outline(flex layout="column" layout-align="center center" ng-click="submit(false)")

@@ -27,7 +27,7 @@ var app = express();
 app.set("view engine", "pug");
 app.set("views", "./views");
 
-app.set("question", process.env.QUESTION || "Have you ever lied to a close friend in order to mislead them?");
+app.set("question", process.env.QUESTION || "Have you ever manipulated a friend to your own advantage?");
 app.set("port", process.env.PORT || 80);
 
 // Middleware
@@ -40,7 +40,7 @@ app.get("/", function(req, res){ res.render("index"); });
 
 // API to get question
 app.get("/question", function(req, res){
-    res.json({status: "ok", question: app.locals.question});
+    res.json({status: "ok", question: app.get("question")});
 });
 
 // API to submit answer

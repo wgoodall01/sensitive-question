@@ -1,6 +1,16 @@
 angular.module("questions", ["ngMaterial", "ngMessages", "ngMdIcons"])
 
 .controller("qCtrl", function($scope, $http){
+
+    $http.get("/question")
+        .then(function(res){
+            $scope.question = res.data.question;
+            console.dir(res.data);
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+
     $scope.tabIndex = 0;
 
     $scope.next = () => { $scope.tabIndex++; };
