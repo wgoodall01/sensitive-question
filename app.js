@@ -61,12 +61,12 @@ app.post("/answer", function(req, res){
     }else if(typeof req.body.personid == "undefined" || typeof req.body.personid == "null"){
         personid = null;
     }else{
-        res.status(400).json({status: "error", error: "`personid` was not a `number` or `undefined` or `null`"});
+        res.status(400).json({status: "error", error: "`personid` was not a `number` or `undefined` or `null``"});
         return;
     }
 
     // Write answer to database
-    pool.query("INSERT INTO responses (response, personid) VALUES ($1, $2)", [answer, personid])
+    pool.query("INSERT INTO responses(response, personid, timestamp_added) VALUES($1, $2, current_timestamp)", [answer, personid])
         .then(function(){
             res.status(200).json({status:"ok"});
         }).catch(function(err){
