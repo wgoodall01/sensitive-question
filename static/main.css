@@ -39,6 +39,7 @@ md-tabs-wrapper{ pointer-events:none; }
     margin:25px;
     margin-top:0;
     height:75px;
+    text-align:center;
 }
 
 .final-question{
