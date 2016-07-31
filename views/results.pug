@@ -1,0 +1,43 @@
+extends base
+
+block append head
+    script(src="results.js")
+
+block body
+    div(ng-app="questions" ng-controller="resultsCtrl").md-padding
+        .md-display-3 Results
+
+        table
+            tr
+                td.md-headline True:
+                td(ng-bind="data.countTrue").md-headline
+            tr
+                td.md-headline False:
+                td(ng-bind="data.countFalse").md-headline
+            tr
+                td.md-headline % True:
+                td.md-headline
+                    span(ng-bind="data.countTrue / (data.countFalse + data.countTrue) * 100 | number:2")
+                    span %
+
+        table(border="1" style="width:100%; border:1px solid black; border-collapse:collapse;")
+            thead: tr
+                td: b ID
+                td: b Timestamp
+                td: b Response
+                td: b Last Name
+                td: b First Name
+                td: b MI
+                td: b Program
+                td: b Email Address
+            tbody
+                tr(ng-repeat="resp in data.responses")
+                    td(ng-bind="resp.id")
+                    td(ng-bind="resp.timestamp_added")
+                    td(ng-bind="resp.response")
+                    td(ng-bind="resp.lastname")
+                    td(ng-bind="resp.firstname")
+                    td(ng-bind="resp.mi")
+                    td(ng-bind="resp.program")
+                    td(ng-bind="resp.email")
+        

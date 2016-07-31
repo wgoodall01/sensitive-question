@@ -29,6 +29,7 @@ app.set("views", "./views");
 
 app.set("question", process.env.QUESTION || "Have you ever manipulated a friend to your own advantage?");
 app.set("port", process.env.PORT || 80);
+app.set("resultsURL", process.env.RESULTS_URL || "results");
 
 // Middleware
 app.use(bodyParser.json());
@@ -37,6 +38,30 @@ app.use(morgan(app.get("dev") ? "dev" : "combined"));
 
 // Render page on request of /
 app.get("/", function(req, res){ res.render("index"); });
+
+// Show results on request of results URL
+// URL isn't hard-coded because URL secrecy is used as bad janky authentication
+app.get("/" + app.get("resultsURL"), function(req, res){res.render("results"); });
+
+// API to get results
+app.get("/" + app.get("resultsURL") + "/results", function(req, res){
+    var data = {};
+    pool.query("SELECT * FROM response_students;")
+            .then( result => {
+                data.responses = result.rows;
+                return pool.query("SELECT COUNT(response) FROM responses \
+                    WHERE (response = true) AND (personid IS NOT NULL)");
+            }).then( result => {
+                data.countTrue = parseInt(result.rows[0].count);
+
+                return pool.query("SELECT COUNT(response) FROM responses \
+                    WHERE (response = false) AND (personid IS NOT NULL)");
+            }).then( result => {
+                data.countFalse = parseInt(result.rows[0].count);
+
+                res.json(data);
+            });
+});
 
 // API to get question
 app.get("/question", function(req, res){
@@ -66,7 +91,7 @@ app.post("/answer", function(req, res){
     }
 
     // Write answer to database
-    pool.query("INSERT INTO responses(response, personid, timestamp_added) VALUES($1, $2, current_timestamp)", [answer, personid])
+    pool.query("INSERT INTO responses(response, personid, timestamp_added) VALUES($1, $2, current_timestamp);", [answer, personid])
         .then(function(){
             res.status(200).json({status:"ok"});
         }).catch(function(err){
