@@ -23,7 +23,13 @@ angular.module("questions", ["ngMaterial", "ngMdIcons"])
     $scope.submissionState = "none";
     $scope.submit = function(answer){
         $scope.submissionState = "waiting";
-        $http.post("/answer", {answer:answer})
+
+        // Calculate person ID
+        var hash = window.location.hash.substr(1);
+        var personid = parseInt(hash);
+        if(isNaN(personid)){ personid = undefined; }
+
+        $http.post("/answer", {answer:answer, personid:personid})
             .then(function(){
                 $scope.submissionState = "done";
             }).catch(function(){
