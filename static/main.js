@@ -12,13 +12,13 @@ angular.module("questions", ["ngMaterial", "ngMdIcons"])
 
     $scope.tabIndex = 0;
 
-    $scope.next = () => { $scope.tabIndex++; };
-    $scope.reset = () => {
+    $scope.next = function(){ $scope.tabIndex++; };
+    $scope.reset = function(){
         $scope.tabIndex = 0;
         $scope.submissionState = "none";
     };
 
-    $scope.newRandom = () => { $scope.lie = Math.random() < 0.25; };
+    $scope.newRandom = function(){ $scope.lie = Math.random() < 0.25; };
 
     $scope.submissionState = "none";
     $scope.submit = function(answer){
