@@ -17,6 +17,7 @@ md-tabs-wrapper{ pointer-events:none; }
 .white-text{ color:white; }
 .icon-black{ fill:black; }
 .margin-25{ margin:25px; }
+.margin-bottom-10{ margin-bottom:10px; }
 
 .red{ background-color:#b6131f; }
 .green{ background-color:#1c9a13; }
