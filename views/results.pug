@@ -15,19 +15,24 @@ block body
                 md-card-title: md-card-title-text: .md-headline Result Summary
                 md-card-content(layout="row")
                     div(layout="column" flex)
-                        .md-headline Num. Responses
-                        .md-headline(ng-bind="data.countTrue + data.countFalse")
+                        .md-headline Responses:
+                        .md-headline(ng-bind="totalResults")
                     div(layout="column" flex)
-                        .md-headline True
+                        .md-headline True:
                         .md-headline(ng-bind="data.countTrue")
                     div(layout="column" flex)
-                        .md-headline False
+                        .md-headline False:
                         .md-headline(ng-bind="data.countFalse")
                     div(layout="column" flex)
-                        .md-headline % True:
+                        .md-headline Raw: 
                         .md-headline
-                            span(ng-bind="data.countTrue / (data.countFalse + data.countTrue) * 100 | number:2")
-                            span %
+                            span(ng-bind="proportion * 100 | number:2")
+                            span % Yes
+                    div(layout="column" flex)
+                        .md-headline Calculated:
+                        .md-headline
+                            span(ng-bind="((0.25 * S) + ((3/4) * (1-S))) * 100 | number:2")
+                            span % Yes
             
             md-card
                 md-card-title: md-card-title-text: .md-headline Responses
