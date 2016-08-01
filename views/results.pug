@@ -1,43 +1,55 @@
 extends base
 
 block append head
+    link(rel="stylesheet", href="main.css")
     script(src="results.js")
 
 block body
-    div(ng-app="questions" ng-controller="resultsCtrl").md-padding
-        .md-display-3 Results
+    div(ng-app="questions" ng-controller="resultsCtrl" ng-cloak)
+        md-toolbar.md-hue-2(): .md-toolbar-tools
+            h2: span Survey Results
 
-        table
-            tr
-                td.md-headline True:
-                td(ng-bind="data.countTrue").md-headline
-            tr
-                td.md-headline False:
-                td(ng-bind="data.countFalse").md-headline
-            tr
-                td.md-headline % True:
-                td.md-headline
-                    span(ng-bind="data.countTrue / (data.countFalse + data.countTrue) * 100 | number:2")
-                    span %
-
-        table(border="1" style="width:100%; border:1px solid black; border-collapse:collapse;")
-            thead: tr
-                td: b ID
-                td: b Timestamp
-                td: b Response
-                td: b Last Name
-                td: b First Name
-                td: b MI
-                td: b Program
-                td: b Email Address
-            tbody
-                tr(ng-repeat="resp in data.responses")
-                    td(ng-bind="resp.id")
-                    td(ng-bind="resp.timestamp_added")
-                    td(ng-bind="resp.response")
-                    td(ng-bind="resp.lastname")
-                    td(ng-bind="resp.firstname")
-                    td(ng-bind="resp.mi")
-                    td(ng-bind="resp.program")
-                    td(ng-bind="resp.email")
-        
+        md-content.md-padding
+            
+            md-card
+                md-card-title: md-card-title-text: .md-headline Result Summary
+                md-card-content(layout="row")
+                    div(layout="column" flex)
+                        .md-headline Num. Responses
+                        .md-headline(ng-bind="data.countTrue + data.countFalse")
+                    div(layout="column" flex)
+                        .md-headline True
+                        .md-headline(ng-bind="data.countTrue")
+                    div(layout="column" flex)
+                        .md-headline False
+                        .md-headline(ng-bind="data.countFalse")
+                    div(layout="column" flex)
+                        .md-headline % True:
+                        .md-headline
+                            span(ng-bind="data.countTrue / (data.countFalse + data.countTrue) * 100 | number:2")
+                            span %
+            
+            md-card
+                md-card-title: md-card-title-text: .md-headline Responses
+                md-card-content
+                    table(border="1" style="width:100%; border:1px solid black; border-collapse:collapse;")
+                        thead: tr
+                            td: b ID
+                            td: b Timestamp
+                            td: b Response
+                            td: b Last Name
+                            td: b First Name
+                            td: b MI
+                            td: b Program
+                            td: b Email Address
+                        tbody
+                            tr(ng-repeat="resp in data.responses")
+                                td(ng-bind="resp.id")
+                                td(ng-bind="resp.timestamp_added")
+                                td(ng-bind="resp.response")
+                                td(ng-bind="resp.lastname")
+                                td(ng-bind="resp.firstname")
+                                td(ng-bind="resp.mi")
+                                td(ng-bind="resp.program")
+                                td(ng-bind="resp.email")
+                
