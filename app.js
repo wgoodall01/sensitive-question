@@ -36,69 +36,10 @@ app.use(bodyParser.json());
 app.use("/", express.static(__dirname + "/static"));
 app.use(morgan(app.get("dev") ? "dev" : "combined"));
 
-// Render page on request of /
-app.get("/", function(req, res){ res.render("index"); });
-
-// Show results on request of results URL
-// URL isn't hard-coded because URL secrecy is used as bad janky authentication
-app.get("/" + app.get("resultsURL"), function(req, res){res.render("results"); });
-
-// API to get results
-app.get("/" + app.get("resultsURL") + "/results", function(req, res){
-    var data = {};
-    pool.query("SELECT * FROM response_students;")
-            .then( result => {
-                data.responses = result.rows;
-                return pool.query("SELECT COUNT(response) FROM responses \
-                    WHERE (response = true) AND (personid IS NOT NULL)");
-            }).then( result => {
-                data.countTrue = parseInt(result.rows[0].count);
-
-                return pool.query("SELECT COUNT(response) FROM responses \
-                    WHERE (response = false) AND (personid IS NOT NULL)");
-            }).then( result => {
-                data.countFalse = parseInt(result.rows[0].count);
-
-                res.json(data);
-            });
-});
-
-// API to get question
-app.get("/question", function(req, res){
-    res.json({status: "ok", question: app.get("question")});
-});
-
-// API to submit answer
-app.post("/answer", function(req, res){
-    var answer;
-    if(req.body.answer === true){
-        answer = true;
-    } else if(req.body.answer === false){
-        answer = false;
-    }else{
-        res.status(400).json({status: "error", error: "`answer` was not `true` or `false`"});
-        return; 
-    }
-
-    var personid;
-    if(typeof req.body.personid == "number"){
-        personid = req.body.personid;
-    }else if(typeof req.body.personid == "undefined" || typeof req.body.personid == "null"){
-        personid = null;
-    }else{
-        res.status(400).json({status: "error", error: "`personid` was not a `number` or `undefined` or `null``"});
-        return;
-    }
-
-    // Write answer to database
-    pool.query("INSERT INTO responses(response, personid, timestamp_added) VALUES($1, $2, current_timestamp);", [answer, personid])
-        .then(function(){
-            res.status(200).json({status:"ok"});
-        }).catch(function(err){
-            res.status(500).json({status:"error", error:"Database error."});
-            console.log(err);
-        });
-});
+// Routes
+require("./routes/pages")(app);
+require("./routes/api")(app, pool);
+require("./routes/tracker")(app, pool);
 
 // Start server
 console.log(` >> Listening on http://localhost:${app.get("port")} << `);
