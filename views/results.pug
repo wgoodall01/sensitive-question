@@ -8,6 +8,8 @@ block body
     div(ng-app="questions" ng-controller="resultsCtrl" ng-cloak)
         md-toolbar.md-hue-2(): .md-toolbar-tools
             h2: span Survey Results
+            span(flex)
+            md-button(ng-click="refresh()"): md-icon: ng-md-icon(icon="refresh")
 
         md-content.md-padding
             
@@ -19,44 +21,42 @@ block body
                             .md-subhead Responses:
                             .md-headline(ng-bind="totalResults")
                         div.margin-bottom-10(layout="column" flex)
-                            .md-subhead True:
-                            .md-headline(ng-bind="data.countTrue")
-                        div.margin-bottom-10(layout="column" flex)
-                            .md-subhead False:
-                            .md-headline(ng-bind="data.countFalse")
+                            .md-subhead Non-Responses:
+                            .md-headline(ng-bind="nonResponseCount")
                     div(layout-sm="column" layout-gt-sm="row" flex)
-                        div.margin-bottom-10(layout="column" flex)
-                            .md-subhead Raw: 
-                            .md-headline
-                                span(ng-bind="proportion * 100 | number:2")
-                                span % Yes
                         div.margin-bottom-10(layout="column" flex)
                             .md-subhead Calculated:
                             .md-headline: b
                                 span(ng-bind="((0.25 * S) + ((3/4) * (1-S))) * 100 | number:2")
                                 span % Yes
-            
-            md-card
-                md-card-title: md-card-title-text: .md-headline Responses
-                md-card-content
-                    table(style="width:100%;")
-                        thead: tr
-                            td: b ID
-                            td: b Timestamp
-                            td: b Response
-                            td: b Last Name
-                            td: b First Name
-                            td: b MI
-                            td: b Program
-                            td: b Email Address
-                        tbody
-                            tr(ng-repeat="resp in data.responses")
-                                td(ng-bind="resp.id")
-                                td(ng-bind="resp.timestamp_added")
-                                td(ng-bind="resp.response")
-                                td(ng-bind="resp.lastname")
-                                td(ng-bind="resp.firstname")
-                                td(ng-bind="resp.mi")
-                                td(ng-bind="resp.program")
-                                td(ng-bind="resp.email")
-                
+
+            div(layout-gt-md="row" layout="column")
+                md-card(flex)
+                    md-card-title(flex="nogrow"): md-card-title-text: .md-headline Responses
+                    md-card-content(flex layout="row")
+                        table(flex style="width:100%;")
+                            thead: tr
+                                td: b Response
+                                td: b Timestamp
+                                td: b Last Name
+                                td: b First Name
+                            tbody
+                                tr(ng-repeat="resp in data.responses")
+                                    td(ng-bind="resp.response")
+                                    td(ng-bind="resp.timestamp_added | date:'MMM dd, hh:mm'")
+                                    td(ng-bind="resp.lastname")
+                                    td(ng-bind="resp.firstname")
+                    
+                md-card(flex)
+                    md-card-title(flex="nogrow"): md-card-title-text: .md-headline Non-Responders
+                    md-card-content(flex layout="row")
+                        table(flex style="width:100%;")
+                            thead: tr
+                                td: b Last Name
+                                td: b First Name
+                                td: b Email Open Timestamp
+                            tbody
+                                tr(ng-repeat="p in data.nonResponses")
+                                    td(ng-bind="p.lastname")
+                                    td(ng-bind="p.firstname")
+                                    td(ng-bind="p.timestamp_visited | date:'MMM dd, hh:mm'")

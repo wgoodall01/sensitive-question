@@ -2,21 +2,27 @@ module.exports = function(app, pool){
     // API to get results
     app.get("/" + app.get("resultsURL") + "/results", function(req, res){
         var data = {};
-        pool.query("SELECT * FROM response_students;")
+        pool.query("SELECT lastname, firstname, response, timestamp_added \
+                    FROM response_students;")
                 .then( result => {
                     data.responses = result.rows;
-                    return pool.query("SELECT COUNT(response) FROM responses \
-                        WHERE (response = true) AND (personid IS NOT NULL)");
+                    return pool.query("SELECT COUNT(response) FROM response_students \
+                        WHERE (response = true)");
                 }).then( result => {
                     data.countTrue = parseInt(result.rows[0].count);
 
-                    return pool.query("SELECT COUNT(response) FROM responses \
-                        WHERE (response = false) AND (personid IS NOT NULL)");
+                    return pool.query("SELECT COUNT(response) FROM response_students\
+                        WHERE (response = false)");
                 }).then( result => {
                     data.countFalse = parseInt(result.rows[0].count);
 
-                    res.json(data);
-                });
+                    return pool.query("SELECT lastname, firstname, timestamp_visited \
+                                        FROM non_response_students;");
+                }).then( result => {
+                    data.nonResponses = result.rows;
+                })
+
+                .then(() => {res.json(data);});
     });
 
     // API to get question

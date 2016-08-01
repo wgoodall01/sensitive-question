@@ -1,14 +1,21 @@
 angular.module("questions", ["ngMaterial", "ngMdIcons"])
 
 .controller("resultsCtrl", function($scope, $http){
-    $http.get(window.location.href + "/results")
-        .then(res => {
-            $scope.data = res.data;
+    $scope.showResponses = true;
+    $scope.showIgnores = false;
 
-            $scope.totalResults = $scope.data.countFalse + $scope.data.countTrue;
-            $scope.proportion = $scope.data.countTrue / $scope.totalResults;
-            $scope.S = $scope.proportion;
-        });
+    $scope.refresh = function(){
+        $http.get(window.location.href + "/results")
+            .then(res => {           
+                $scope.data = res.data;
 
-        $scope.ayy = "lmao";
+                $scope.nonResponseCount = $scope.data.nonResponses.length;
+
+                $scope.totalResults = $scope.data.countFalse + $scope.data.countTrue;
+                $scope.proportion = $scope.data.countTrue / $scope.totalResults;
+                $scope.S = $scope.proportion;
+            });
+    };
+
+    $scope.refresh();
 });
