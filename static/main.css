@@ -16,6 +16,7 @@ md-tabs-wrapper{ pointer-events:none; }
 
 .white-text{ color:white; }
 .icon-black{ fill:black; }
+.margin-25{ margin:25px; }
 
 .red{ background-color:#b6131f; }
 .green{ background-color:#1c9a13; }
@@ -28,9 +29,6 @@ md-tabs-wrapper{ pointer-events:none; }
     border-radius:5px;
 }
 
-.margin-25{
-    margin:25px;
-}
 
 .selection-button{
     /* The final yes/no buttons */
