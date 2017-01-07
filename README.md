@@ -6,3 +6,9 @@ In statistics, there is an interesting strategy for guaranteeing survey anonymit
 When I was given a project in a statistics class which required me to implement this, I thought it would be easier to write this app rather than manually interview over 100 people. It's designed to track emails sent to survey subjects, and displays email opens and survey responses in a response dashboard, so you can see who responded and who didn't.
 
 This application is a really simple implementation of that technique, designed to be deployed to Heroku. The frontend is a simple static Angular page using `angular-material`, which calls an incredibly simple API on the backend to submit the result, along with submitting a unique token representing the person taking the survey.
+
+# Screenshots
+<img src="http://i.imgur.com/TDxpmto.png"></img>
+<img src="http://i.imgur.com/YNPQ4kB.png"></img>
+<img src="http://i.imgur.com/a8tyndA.png"></img>
+<img src="http://i.imgur.com/3Lm0ZGT.png"></img>
