@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,8 @@
     "express": "^4.14.0",
     "morgan": "^1.7.0",
     "pg": "^6.0.3",
-    "pug": "^2.0.0-beta4"
-  }
+    "pug": "^2.0.0-beta4",
+    "snyk": "^1.192.0"
+  },
+  "snyk": true
 }
